@@ -30,3 +30,17 @@ const renderSelectWithMovies = () => {
 }
 
 classOfSelect.append(renderSelectWithMovies());
+
+const changeStyleOfPlace = (getElementFromArray) => {
+
+    if (getElementFromArray.currentTarget.className == "row__place") {
+        getElementFromArray.currentTarget.className = "row__selected";
+    }
+    else {
+        getElementFromArray.currentTarget.className = "row__place";
+    }
+}
+
+
+const getPlace = document.querySelectorAll(".row__place");
+getPlace.forEach((getElementFromArray) => getElementFromArray.addEventListener("click", changeStyleOfPlace));
