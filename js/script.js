@@ -1,47 +1,32 @@
-const getPlace = document.querySelectorAll(".row__place");
-let priceOfMovie = 0;
-
-document.querySelector(".select").addEventListener('change', function() {
-    let valueOfSelect = Number(this.value);
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    let valueOfSelect = Number(document.querySelector(".select").value);
-});
-
-const getPriceOfSelect = (priceOfMovie) => {
-    
-    switch (valueOfSelect) {
-        case 10:
-            priceOfMovie = 10;
-            return priceOfMovie;
-            break;
-        case 12:
-            priceOfMovie = 12;
-            return priceOfMovie;
-            break;
-        case 8:
-            priceOfMovie = 8;
-            return priceOfMovie;
-            break;
-        case 9:
-            priceOfMovie = 9;
-            return priceOfMovie;
-            break;
-        default:
-            return alert( "Нет таких значений" );
+const moviesData = [
+    {
+        name: "Avengers: Final (10$)",
+        price: 10
+    },
+    {
+        name: "Joker (12$)",
+        price: 12
+    },
+    {
+        name: "John Wick 3 (8$)",
+        price: 8
+    },
+    {
+        name: "The Lion King (9$)",
+        price: 9
     }
-} 
+]
 
-const changeStyleOfPlace = (getElementFromArray, priceOfMovie) => {
+const classOfSelect = document.querySelector(".select");
 
-    if (getElementFromArray.currentTarget.className == "row__place") {
-        getElementFromArray.currentTarget.className = "row__selected";
-        document.querySelector(".text__total").innerHTML += priceOfMovie;
-    }
-    else {
-        getElementFromArray.currentTarget.className = "row__place";
-    }
+const renderSelectWithMovies = () => {
+    const fragment = new DocumentFragment();
+    moviesData.forEach((movies) =>  {
+        const option = document.createElement('option');
+        option.append(movies.name);
+        fragment.append(option);
+    });
+    return fragment;
 }
 
-getPlace.forEach((getElementFromArray) => getElementFromArray.addEventListener("click", changeStyleOfPlace));
+classOfSelect.append(renderSelectWithMovies());
