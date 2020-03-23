@@ -1,3 +1,9 @@
+"use strict";
+
+const place = document.querySelectorAll(".row__place");
+const moviesOptions = document.querySelectorAll("select__option");
+const moviesSelect = document.querySelector(".select");
+
 const moviesData = [
     {
         name: "Avengers: Final (10$)",
@@ -17,30 +23,36 @@ const moviesData = [
     }
 ]
 
-const classOfSelect = document.querySelector(".select");
+let priceTickets = moviesData[0].price;
 
 const renderSelectWithMovies = () => {
     const fragment = new DocumentFragment();
-    moviesData.forEach((movies) =>  {
+    moviesData.forEach((movie) =>  {
         const option = document.createElement('option');
-        option.append(movies.name);
+        option.className = "select__option";
+        option.textContent = movie.name;
         fragment.append(option);
     });
     return fragment;
 }
 
-classOfSelect.append(renderSelectWithMovies());
-
-const changeStyleOfPlace = (getElementFromArray) => {
-
-    if (getElementFromArray.currentTarget.className == "row__place") {
-        getElementFromArray.currentTarget.className = "row__selected";
-    }
-    else {
-        getElementFromArray.currentTarget.className = "row__place";
-    }
+const createOption = () => {
+    moviesSelect.append(renderSelectWithMovies());
 }
 
+const changeStyleOfPlace = (evt) => {
+    evt.currentTarget.className == "row__place" ? evt.currentTarget.className = "row__selected" : evt.currentTarget.className = "row__place";
+}
 
-const getPlace = document.querySelectorAll(".row__place");
-getPlace.forEach((getElementFromArray) => getElementFromArray.addEventListener("click", changeStyleOfPlace));
+const addClickListenersToPlaces = () => {
+    place.forEach((evt) => evt.addEventListener("click", changeStyleOfPlace));
+}
+
+document.querySelector(".select").addEventListener('change', function() {
+    const selectedOptionIndex = [moviesOptions].findIndex(option => option.selected);
+    console.log(selectedOptionIndex);
+});
+
+
+createOption();
+addClickListenersToPlaces();
